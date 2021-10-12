@@ -1,0 +1,100 @@
+\documentclass[../main.tex]{subfiles}
+
+\begin{document}
+\cleardoublepage
+\phantomsection
+\section*{Appendices} \label{sec:appendices}
+\addcontentsline{toc}{section}{\protect Appendices}
+
+
+% First Appendix
+\addcontentsline{toc}{subsection}{\protect Appendix A. Apparatus Construction}
+\subsection*{Apparatus Construction} \label{subsec:appendixOne}
+
+\begin{figure}[H]
+\centering
+\begin{minipage}{.49\textwidth}
+  \centering
+  \captionsetup{justification=centering}
+  \begin{circuitikz}[scale=1, european] 
+        % \draw (0,0) to[battery=5V, l_=Arduino] (0,4);
+        % \draw (0,4) -- (4,4)
+        %     to[R, l=$10^3\ \si{\ohm}$] (4,2); % Resistor
+        % \draw (4,1.7) to[short, *-o] (6,1.7) node[anchor=west] {A0};
+        % \draw(4,2) to[R, label={$R_T$}] (4,0); % Thermistor
+        % \draw (4,0.3) to[short, *-o] (6,0.3) node[anchor=west] {GND};
+        % \draw (4,0) -- (0,0);
+        
+        % \draw (0,0) to[battery=5V, l_=Arduino] (0,4);
+        % \draw (0,4) -- (4,4)
+        \draw (4,4) to[short, *-o] (0,4) node[anchor=east] {5V};
+        \draw (4,4) to[R, l=$10^3\ \si{\ohm}$] (4,2); % Resistor
+        \draw (4,2) to[short, *-o] (6,2) node[anchor=west] {A0};
+        \draw(4,2) to[R, label={$R_T$}] (4,0); % Thermistor
+        \draw (4,0) to[short, *-o] (0,0) node[anchor=east] {GND};
+    \end{circuitikz}
+    \caption{Circuit of resistor and thermistor $R_T$ connected to Arduino}
+    \label{fig:circuitDrawingAppendix}
+\end{minipage}%
+\begin{minipage}{.49\textwidth}
+  \centering
+  \captionsetup{justification=centering}
+  \begin{tabular}{cc}
+        \toprule
+        Temperature $\left(\si{\celsius}\right)$ & Resistance $\left(\si{\ohm}\right)$ \\
+        (\SI{\pm 0.1}{\celsius}) & (\SI{\pm 1}{\ohm}) \\
+        \midrule
+        $22.6$ & $1330$\\
+        $11.3$ & $2140$\\
+        $9.5$  & $2320$\\
+        $-13.7$& $7070$\\
+        \bottomrule
+    \end{tabular}
+  \captionof{table}{Values of $R_T$ at \\specific temperatures}
+  \label{tab:resistorCharacteristicsAppendix}
+\end{minipage}
+\end{figure}
+
+From Fig. \ref{fig:circuitDrawingAppendix}, whole circuit has a resistance $R_{tot} = R + R_T$, where $R$ is resistor with nominal resistance $\SI{1}{\kilo\ohm}$ (experimentally $\SI{989}{\ohm}$) and $R_T$ is the thermistor. Circuit has the potential difference $V_{arduino}$, thus:
+
+\begin{gather}
+    V_{arduino} = I \cdot \frac{1}{R + R_T} \implies I = \frac{V_{arduino}}{R + R_T} \\
+\intertext{Expressing for $R_T$ and using the expression above}
+V_T = I \cdot R_T \\
+V_T = \left(\frac{V_{arduino}}{R + R_T}\right) \cdot R_T \implies V_T= V_{arduino} \cdot \frac{R_T}{R + R_T}.
+\end{gather} \label{eq:circuitFinalAppendix}
+
+Using the guide provided by \textcite{thermistorCalibration}, the Steinhart-Hart $\beta$ Parameter equation was used to approximate the resistance-temperature relationship for the said thermistor:
+
+\begin{gather}
+    R(T) = R_0 \cdot e^{B \left(1/T - 1/T_0\right)} \\
+\intertext{where $R_0$ is the initial resistance and $T_0$ is the initial temperature from Table.~\ref{tab:resistorCharacteristicsAppendix}, $R$ is theoretical resistance and $T$ is the corresponding temperature for that resistance.}
+    \frac{R}{R_0} = e^{B \left(1/T - 1/T_0\right)} \nonumber \\
+    \ln{\frac{R}{R_0}} = \frac{B}{T} - \frac{B}{T_0} \nonumber \\
+    \ln{\frac{R}{R_0}} + \frac{B}{T_0} = \frac{B}{T} \nonumber \\
+    T = \frac{B}{\ln{\left(\frac{R}{R_0}\right)} + \frac{B}{T_0}} \nonumber \\
+    T = \frac{T_0 \cdot B}{T_0 \cdot \ln{\left(\frac{R}{R_0}\right)} + B} \nonumber
+\intertext{or}
+    T = \frac{B}{\ln{\left(\frac{R}{R_0}\right)} + \ln{\left(e^{B/T_0}\right)}} \nonumber\\
+    T = \frac{B}{\ln{\left(\frac{R}{R_0} \cdot e^{B/T_0}\right)}}. \nonumber \\
+\intertext{Finally, rearranging and lastly subtracting 273.15 to convert from Kelvins into Celsius:}
+    T = \frac{B}{\ln{\left(\frac{R}{R_0 \cdot e^{-B/T_0}}\right)}} \implies \boxed{T = \frac{B}{\ln{\left(\frac{R}{R_0 \cdot e^{-B/T_0}}\right)}} - 273.15.}
+\end{gather} \label{eq:temperatureFinal}
+
+Coefficient $B$ was obtained by using website \textcite{betaCalculation} and found to be $B = 3540.94$ for values shown in Table.~\ref{tab:resistorCharacteristics}. \par 
+
+Using these formulas in \eqref{eq:circuitFinal} and \eqref{eq:temperatureFinal} Python code was written (see \textbf{Appendix: Python Code}). It firstly uses Arduino apparatus to find $R_T$, thermistor resistance, and then converts $R_T$ into temperature by using the formulas outlined above. \par 
+
+% Second Appendix
+\newpage \thispagestyle{plain}
+\subsubsection*{Arduino Code} \label{subsubsec:arduinoCode} \addcontentsline{toc}{subsubsection}{\protect Arduino Code}
+\lstset{breaklines=true}
+\lstinputlisting[style=myArduino]{code/code.ino}
+
+% Python Code
+\newpage \thispagestyle{plain}
+\subsubsection*{Python Code: Data Collection from Arduino} \label{subsubsec:pythonCode}
+\addcontentsline{toc}{subsubsection}{\protect Python Code}
+\lstset{breaklines=true}
+\lstinputlisting[language=python]{code/pythonCode.py}
+\end{document}

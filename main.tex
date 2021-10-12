@@ -1,0 +1,140 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage{graphicx}
+\usepackage{appendix}
+\usepackage[siunitx, EFvoltages]{circuitikz}
+\usepackage{siunitx}
+\usepackage{booktabs}
+\usepackage{subcaption}
+\usepackage{multirow}
+\usepackage{float}
+\usepackage{physics}
+\usepackage{makecell}
+\usepackage[makeroom]{cancel}
+\usepackage{enumerate}
+\usepackage{hyperref}
+    \hypersetup{
+    colorlinks=true,
+    breaklinks=true,
+    citecolor=blue,
+    linkcolor=black,
+    urlcolor=[RGB]{34 34 59},
+    }
+\numberwithin{equation}{section}
+\usepackage[nottoc, notlot, notlof, numbib]{tocbibind}
+\usepackage[labelfont=bf]{caption}
+% Table
+\usepackage[margin=1in]{geometry}
+\usepackage{amsfonts,amsmath,amssymb}
+\usepackage{fancyhdr} %Fancy Title 
+\usepackage{setspace}
+\usepackage{array}
+    \newcolumntype{P}[1]{>{\centering\arraybackslash}p{#1}}
+    \newcolumntype{M}[1]{>{\centering\arraybackslash}m{#1}}
+\usepackage{multirow}
+\usepackage{blindtext}
+
+\usepackage{listings}
+\input{code/arduinoLanguage}
+    \lstdefinestyle{myArduino}{  
+        language=Arduino,  
+        %% make listing changes here %%  
+      }  
+
+% Bibliography
+\usepackage{csquotes}
+\usepackage[
+backend=biber,
+style=apa,
+sorting=ynt
+]{biblatex}
+\setcounter{biburllcpenalty}{9000}
+\addbibresource{bibliography/references.bib}
+
+\usepackage[capitalise]{cleveref}
+\usepackage{subfiles}
+
+\pagestyle{fancy}
+\fancyhead{}
+\fancyfoot{}
+\fancyhead[L]{\slshape Impact of the NaCl Solute on the Occurrence of the Mpemba Effect}
+\fancyhead[R]{\slshape May 2021}
+\fancyfoot[C]{\thepage}
+\setlength{\headheight}{15pt} 
+
+% Add dot after section number
+\usepackage{titlesec}
+% \titlelabel{Chapter: \thetitle.\quad}
+\titleformat{\section}[hang] 
+{\normalfont\huge\bfseries}{Chapter \thetitle:}{0.5em}{} 
+
+\titleformat*{\section}{\Large\bfseries}
+\titleformat*{\subsection}{\large\bfseries}
+\titleformat*{\subsubsection}{\large\bfseries}
+\titleformat*{\paragraph}{\large\bfseries}
+\titleformat*{\subparagraph}{\large\bfseries}
+
+
+%Paragraph
+\setlength{\parindent}{0pt}
+
+%% End of packages %%
+
+\begin{document}
+
+\begin{titlepage}
+
+\begin{center}
+\vspace*{3cm}
+\line(1,0){400}\\[1mm]
+\huge{\textbf{Impact of the NaCl Solute on the Occurrence of the Mpemba Effect}} % Summative statement
+\line(1,0){400}\\ \bigskip
+\Large{\textbf{\emph{How do different concentrations of the NaCl solute affect the occurrence of the Mpemba Effect?}}} \line(1,0){400}\\  \vspace{2cm} % RQ
+\Large{\textbf{Subject:} Physics}\\ \bigskip \bigskip % Subject: Physics, Category 4
+\Large{$2911$ words}
+\vfill 
+\Large{\textbf{May 2021}}
+
+\end{center}
+
+\end{titlepage}
+
+
+\tableofcontents
+\thispagestyle{empty}
+\clearpage \setcounter{page}{1}
+
+% Sections
+\setlength{\parskip}{1em}
+\section{Introduction}
+\subfile{sections/introduction} % with Background Information
+
+\section{Experimental Design}
+\subfile{sections/experimentalDesign}
+
+\section{Results \& Discussion}
+\subfile{sections/resultsAnalysis}
+
+\section{Conclusion}
+\subfile{sections/conclusion}
+\subfile{sections/evaluation}
+
+% References
+\newpage \thispagestyle{plain}
+\setlength\bibitemsep{8pt}
+\cleardoublepage
+\phantomsection
+\section*{References} \addcontentsline{toc}{section}{\protect References}
+\printbibliography[type=article,title={Articles}]
+\printbibliography[type=book,title={Books}]
+\printbibliography[type=manual,title={Apparatus Manuals}]
+\printbibliography[type=online,title={Websites}]
+% \printbibliography[type=artwork,title={Artworks}]
+% \printbibliography[type=book,title={Websites}]
+
+\newpage \thispagestyle{plain}
+\subfile{sections/appendix}
+
+\end{document}

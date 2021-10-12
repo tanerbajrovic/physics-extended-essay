@@ -1,0 +1,40 @@
+\documentclass[../main.tex]{subfiles}
+
+\begin{document}
+\doublespacing
+
+Counterinuitive, as it appears to violate the First Law of Thermodynamics, this effect has seen a resurgence in the last few years despite having been around for quite some time, even dating back to Aristotle \autocite{p._aristoteles_1962}. In turn, this led to the development of different theories, none of which are unequivocally accepted. On the other hand, there is some recent research which completely renounces the Mpemba effect, claiming that it is not a genuine physical effect and thus constitutes a scientific fallacy \autocite{burridge_questioning_2016,burridge_observing_2020}.  \par
+
+In trying to explain the effect, as it has been observed dozens of times, multiple approaches were considered by scientists; namely, (1) supercooling, (2) convection currents and (3) theory of solutes. 
+
+% \begin{enumerate}
+%     \item \textbf{Supercooling}
+%     \item \textbf{Dissolved Gasses}
+%     \item \textbf{Theory of Solutes}
+% \end{enumerate}
+
+However, as put by \textcite{jeng_mpemba_2006}, in order to examine the effect "it is important to consider a parameter that might change during the experiment." Furthermore, this might give insight into why the hotter sample would not have the same properties when it reaches the initial temperature of the cooler sample. 
+
+\subsubsection{Newton's Law of Cooling}
+Newton's Law of Cooling is important to the study of water freezing as it allows to theoretically predict its behaviour. This can be modelled using the following equation:
+\begin{equation}\label{eq:CoolingLawGeneral}
+    \dv{T(t)}{t} = -k\cdot \left(T - T_{amb}\right)
+\end{equation}
+where $T$ is temperature of a sample, $k$ is an experimental constant, and $T_{amb}$ is ambient temperature of a freezer such that $T \geq T_{amb}$. From this, it may noted that the bigger the temperature difference between $T$ and $T_{amb}$ the faster the water sample freezes. However, as explained by \textcite[2]{thomas_mpemba_nodate} this does not support the effect; it rather just reinstates that the hotter water must traverse the same temperature path as the cooler water. \par
+
+In addition, \textcite{pankovic_mpemba_2012} proposed a theoretical model based on the Newton's Law of Cooling and implied that it can predict when the Mpemba effect will occur. This model, however, is not widely accepted since the Mpemba effect is theorized to occur as a result of different factors - for which the Newton's Law of Cooling cannot really account for. \par   
+
+\subsubsection{Freezing Point Depression}
+
+Increasing the concentration of table salt, and thus its main component NaCl, decreases the freezing point of water, leading to a phenomenon called the freezing point depression \autocite{helmenstine_heres_nodate}. On the quantitative side this is described by the Clausius-Clapeyron equation and Raoult's Law whereby:
+\begin{equation} \label{eq:freezingPoint}
+    F_{tot} = F_{solv} - \Delta T_f,
+\end{equation}
+where $F_{tot}$ is the freezing point of the total mixture, $F_{solv}$ is the freezing point of solvent (water) and $\Delta T_f$ is the change in temperature. From this it follows that the freezing point of water is affected by $\Delta T_f$ and decreases as a consequence of $\Delta T_f$ increasing. $\Delta T_f$ itself is defined as:
+\begin{equation}
+    \Delta T_f = \text{molality} \cdot K_f \cdot i 
+\end{equation}
+where molality refers to the measure of number of moles of solute present in $\SI{1}{\kilogram}$ of solvent, $K_f$ is the cryoscopic constant and $i$ is the Van't Hoff factor. In case of tap water, cryscopic constant, $K_f$, is $\SI{1.853}{\kelvin\kilo\gram\per\mole}$ and the Van't Hoff factor, $i$, for NaCl is found to be $2$ \autocite{noauthor_vant_nodate} which implies that the change in freezing point is influenced by the molality \par 
+
+
+\end{document}
