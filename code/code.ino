@@ -8,7 +8,7 @@ void setup() {
   Serial.begin(9600);
 }
 
-// Main code that runs repeatdely
+// Main code that runs repeatedly
 void loop() {
   // Read the raw data on analogPin
   float input = analogRead(analogPin);
